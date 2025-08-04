@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premier League Prediction Challenge</title>
     <style>
-        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background-color:#f0f2f5;color:#333;margin:0;padding:20px}#root{max-width:800px;margin:0 auto;background-color:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1)}.app-header{text-align:center;margin-bottom:20px;border-bottom:1px solid #ddd;padding-bottom:10px}.app-header h1{color:#1a0dab;margin:0}.app-header p{margin:5px 0;color:#555}.navigation{text-align:center;margin-bottom:20px}.nav-button{background-color:#4285f4;color:#fff;border:none;padding:10px 20px;margin:0 10px;border-radius:5px;cursor:pointer;font-size:16px}.nav-button:disabled{background-color:#aaa;cursor:not-allowed}.gameweek-container{margin-bottom:20px}.gameweek-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.gameweek-title{color:#1a0dab;margin:0}.countdown-timer{font-weight:700;color:#d93025}.lockdown-message{text-align:center;padding:10px;background-color:#f8d7da;color:#721c24;border:1px solid #f5c6cb;border-radius:5px;margin-bottom:15px}.fixture-list{display:grid;gap:15px}.fixture-item{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:10px;border:1px solid #ddd;border-radius:5px}.team{text-align:center}.team-name{font-weight:700}.score-input{width:40px;text-align:center;font-size:16px;border:1px solid #ccc;border-radius:3px}.vs{font-weight:700}.player-input-container{display:flex;justify-content:center;align-items:center;margin-bottom:20px;gap:10px}.player-name-input{padding:8px;font-size:16px;border:1px solid #ccc;border-radius:3px}.wildcard-button{background-color:#34a853;color:#fff;border:none;padding:8px 15px;border-radius:5px;cursor:pointer;font-size:16px}.wildcard-button.used{background-color:#aaa;cursor:not-allowed}.submit-button{display:block;width:100%;padding:12px;background-color:#4285f4;color:#fff;border:none;border-radius:5px;font-size:18px;cursor:pointer;margin-top:20px}.submit-button:disabled{background-color:#aaa;cursor:not-allowed}.leaderboard-container{margin-top:20px}.leaderboard-title{text-align:center;color:#1a0dab;margin-bottom:15px}.leaderboard-table{width:100%;border-collapse:collapse}.leaderboard-table th,.leaderboard-table td{border:1px solid #ddd;padding:8px;text-align:left}.leaderboard-table th{background-color:#f2f2f2;font-weight:700}.leaderboard-table tr:nth-child(even){background-color:#f9f9f9}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background-color:#f0f2f5;color:#333;margin:0;padding:20px}#root{max-width:800px;margin:0 auto;background-color:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1)}.app-header{text-align:center;margin-bottom:20px;border-bottom:1px solid #ddd;padding-bottom:10px}.app-header h1{color:#1a0dab;margin:0}.app-header p{margin:5px 0;color:#555}.navigation{text-align:center;margin-bottom:20px}.nav-button{background-color:#4285f4;color:#fff;border:none;padding:10px 20px;margin:0 10px;border-radius:5px;cursor:pointer;font-size:16px}.nav-button:disabled{background-color:#aaa;cursor:not-allowed}.gameweek-container{margin-bottom:20px}.gameweek-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.gameweek-title{color:#1a0dab;margin:0}.countdown-timer{font-weight:700;color:#d93025}.lockdown-message{text-align:center;padding:10px;background-color:#f8d7da;color:#721c24;border:1px solid #f5c6cb;border-radius:5px;margin-bottom:15px}.fixture-list{display:grid;gap:15px}.fixture-item{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:10px;border:1px solid #ddd;border-radius:5px}.team{text-align:center}.team-name{font-weight:700;display:flex;align-items:center;justify-content:center}.score-input{width:40px;text-align:center;font-size:16px;border:1px solid #ccc;border-radius:3px}.vs{font-weight:700}.player-input-container{display:flex;justify-content:center;align-items:center;margin-bottom:20px;gap:10px}.player-name-input{padding:8px;font-size:16px;border:1px solid #ccc;border-radius:3px}.wildcard-button{background-color:#34a853;color:#fff;border:none;padding:8px 15px;border-radius:5px;cursor:pointer;font-size:16px}.wildcard-button.used{background-color:#aaa;cursor:not-allowed}.submit-button{display:block;width:100%;padding:12px;background-color:#4285f4;color:#fff;border:none;border-radius:5px;font-size:18px;cursor:pointer;margin-top:20px}.submit-button:disabled{background-color:#aaa;cursor:not-allowed}.leaderboard-container{margin-top:20px}.leaderboard-title{text-align:center;color:#1a0dab;margin-bottom:15px}.leaderboard-table{width:100%;border-collapse:collapse}.leaderboard-table th,.leaderboard-table td{border:1px solid #ddd;padding:8px;text-align:left}.leaderboard-table th{background-color:#f2f2f2;font-weight:700}.leaderboard-table tr:nth-child(even){background-color:#f9f9f9}
     </style>
 </head>
 <body>
@@ -14,38 +15,88 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
         const { useState, useEffect } = React;
-        const initialFixtures = [
-            { id: 1, gameweek: 1, homeTeam: 'Liverpool', awayTeam: 'AFC Bournemouth', kickOff: '2025-08-15T19:00:00.000Z' }, { id: 2, gameweek: 1, homeTeam: 'Aston Villa', awayTeam: 'Newcastle United', kickOff: '2025-08-16T11:30:00.000Z' }, { id: 3, gameweek: 1, homeTeam: 'Brighton', awayTeam: 'Fulham', kickOff: '2025-08-16T14:00:00.000Z' }, { id: 4, gameweek: 1, homeTeam: 'Sunderland', awayTeam: 'West Ham', kickOff: '2025-08-16T14:00:00.000Z' }, { id: 5, gameweek: 1, homeTeam: 'Tottenham', awayTeam: 'Burnley', kickOff: '2025-08-16T14:00:00.000Z' }, { id: 6, gameweek: 1, homeTeam: 'Wolves', awayTeam: 'Man City', kickOff: '2025-08-16T16:30:00.000Z' }, { id: 7, gameweek: 1, homeTeam: 'Chelsea', awayTeam: 'Crystal Palace', kickOff: '2025-08-17T13:00:00.000Z' }, { id: 8, gameweek: 1, homeTeam: 'Nottm Forest', awayTeam: 'Brentford', kickOff: '2025-08-17T13:00:00.000Z' }, { id: 9, gameweek: 1, homeTeam: 'Man United', awayTeam: 'Arsenal', kickOff: '2025-08-17T15:30:00.000Z' }, { id: 10, gameweek: 1, homeTeam: 'Leeds United', awayTeam: 'Everton', kickOff: '2025-08-18T19:00:00.000Z' },
-        ];
+
+        function AdminPanel() {
+            const [gameweek, setGameweek] = useState(1);
+            const [password, setPassword] = useState('');
+
+            const handleCalculate = async () => {
+                if (!password) return alert('Admin password is required.');
+                const confirmation = confirm(`Are you sure you want to calculate scores for Gameweek ${gameweek}? This cannot be undone.`);
+                if (confirmation) {
+                    try {
+                        const response = await fetch('/api/admin/calculate', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ gameweek: parseInt(gameweek), password: password }),
+                        });
+                        if (!response.ok) throw new Error(await response.text());
+                        alert('Score calculation started successfully!');
+                    } catch (error) {
+                        alert(`Error: ${error.message}`);
+                    }
+                }
+            };
+
+            return (
+                <div style={{border: '2px solid #d93025', padding: '15px', marginTop: '20px', borderRadius: '8px', backgroundColor: '#fce8e6'}}>
+                    <h3 style={{marginTop: 0, color: '#a50e0e'}}>Admin Panel</h3>
+                    <input type="number" placeholder="Gameweek Number" value={gameweek} onChange={e => setGameweek(e.target.value)} style={{marginRight: '10px', padding: '8px', borderRadius: '4px', border: '1px solid #ccc'}} />
+                    <input type="password" placeholder="Admin Password" value={password} onChange={e => setPassword(e.target.value)} style={{marginRight: '10px', padding: '8px', borderRadius: '4px', border: '1px solid #ccc'}} />
+                    <button onClick={handleCalculate} style={{backgroundColor: '#d93025', color: 'white', padding: '8px 15px', border: 'none', borderRadius: '4px', cursor: 'pointer'}}>Calculate Gameweek Scores</button>
+                </div>
+            );
+        }
+
         function App() {
+            const [fixtures, setFixtures] = useState([]);
+            const [allFixtures, setAllFixtures] = useState([]);
+            const [currentGameweek, setCurrentGameweek] = useState(1);
             const [currentPage, setCurrentPage] = useState('predictions');
             const [leaderboardData, setLeaderboardData] = useState([]);
             const [currentPlayer, setCurrentPlayer] = useState('');
-            const [currentGameweek, setCurrentGameweek] = useState(1);
             const [predictions, setPredictions] = useState({});
             const [useWildcard, setUseWildcard] = useState(false);
             const [predictionsLocked, setPredictionsLocked] = useState(false);
             const [countdown, setCountdown] = useState('');
-            const API_URL = ''; // This will use the same domain the website is on. Perfect!
 
             useEffect(() => {
-                const firstKickOff = new Date(initialFixtures[0]?.kickOff);
-                const timer = setInterval(() => {
-                    const diff = firstKickOff.getTime() - new Date().getTime();
-                    if (diff <= 2 * 60 * 60 * 1000) {
-                        setPredictionsLocked(true);
-                        setCountdown('Predictions are locked!');
-                        clearInterval(timer);
-                    } else {
-                        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                        setCountdown(`${days}d ${hours}h ${minutes}m`);
+                async function fetchFixtures() {
+                    try {
+                        const response = await fetch('/api/fixtures');
+                        if (!response.ok) throw new Error('Could not fetch fixtures');
+                        const data = await response.json();
+                        setAllFixtures(data);
+                    } catch (error) {
+                        console.error(error);
                     }
-                }, 1000);
-                return () => clearInterval(timer);
+                }
+                fetchFixtures();
             }, []);
 
+            useEffect(() => {
+                const gameweekFixtures = allFixtures.filter(f => f.gameweek === currentGameweek);
+                setFixtures(gameweekFixtures);
+
+                if (gameweekFixtures.length > 0) {
+                    const firstKickOff = new Date(gameweekFixtures[0]?.kickOff);
+                    const timer = setInterval(() => {
+                        const diff = firstKickOff.getTime() - new Date().getTime();
+                        if (diff <= 2 * 60 * 60 * 1000) {
+                            setPredictionsLocked(true);
+                            setCountdown('Predictions are locked!');
+                            clearInterval(timer);
+                        } else {
+                            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                            setCountdown(`${days}d ${hours}h ${minutes}m`);
+                        }
+                    }, 1000);
+                    return () => clearInterval(timer);
+                }
+            }, [currentGameweek, allFixtures]);
+            
             const handlePredictionChange = (fixtureId, team, value) => {
                 setPredictions(prev => ({ ...prev, [fixtureId]: { ...prev[fixtureId], [team]: value } }));
             };
@@ -53,7 +104,7 @@
             const submitPredictions = async () => {
                 if (!currentPlayer) return alert('Please enter your name.');
                 try {
-                    const response = await fetch(`${API_URL}/api/submit`, {
+                    const response = await fetch('/api/submit', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -70,22 +121,21 @@
                     alert(`Error: ${error.message}`);
                 }
             };
-
+            
             const showLeaderboard = async () => {
-                // For this simple version, we will just fetch the current state.
-                // In a more complex app, an admin would trigger the calculation.
-                // For now, we'll let the server calculate scores every time the leaderboard is viewed.
-                await fetch(`${API_URL}/api/calculate-scores`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ gameweek: currentGameweek })
-                });
-                
-                const response = await fetch(`${API_URL}/api/players`);
+                const response = await fetch('/api/players');
                 const data = await response.json();
                 setLeaderboardData(data);
                 setCurrentPage('leaderboard');
             };
+
+            const changeGameweek = (direction) => {
+                const newGameweek = currentGameweek + direction;
+                if(newGameweek > 0 && newGameweek <= 38) { // Assuming 38 gameweeks
+                    setCurrentGameweek(newGameweek);
+                    setPredictions({}); // Clear predictions when changing gameweek
+                }
+            }
 
             return (
                 <div>
@@ -102,25 +152,28 @@
                             </div>
                             <div className="gameweek-container">
                                 <div className="gameweek-header">
+                                    <button onClick={() => changeGameweek(-1)} disabled={currentGameweek === 1}>< Prev GW</button>
                                     <h2 className="gameweek-title">Gameweek {currentGameweek}</h2>
+                                    <button onClick={() => changeGameweek(1)} disabled={currentGameweek === 38}>Next GW ></button>
                                     <div className="countdown-timer">{countdown}</div>
                                 </div>
                                 {predictionsLocked && <div className="lockdown-message">Predictions are locked. Good luck!</div>}
                                 <div className="fixture-list">
-                                    {initialFixtures.map(f => (
+                                    {fixtures.length > 0 ? fixtures.map(f => (
                                         <div key={f.id} className="fixture-item">
-                                            <div className="team"><span className="team-name">{f.homeTeam}</span></div>
+                                            <div className="team"><span className="team-name"><img src={f.homeLogo} style={{height: '25px', marginRight: '8px', verticalAlign: 'middle'}} />{f.homeTeam}</span></div>
                                             <div>
                                                 <input type="number" className="score-input" min="0" disabled={predictionsLocked} onChange={(e) => handlePredictionChange(f.id, 'homeScore', e.target.value)} />
                                                 <span className="vs"> - </span>
                                                 <input type="number" className="score-input" min="0" disabled={predictionsLocked} onChange={(e) => handlePredictionChange(f.id, 'awayScore', e.target.value)} />
                                             </div>
-                                            <div className="team"><span className="team-name">{f.awayTeam}</span></div>
+                                            <div className="team"><span className="team-name">{f.awayTeam}<img src={f.awayLogo} style={{height: '25px', marginLeft: '8px', verticalAlign: 'middle'}} /></span></div>
                                         </div>
-                                    ))}
+                                    )) : <p>Loading fixtures for Gameweek {currentGameweek}...</p>}
                                 </div>
                             </div>
                             <button className="submit-button" onClick={submitPredictions} disabled={predictionsLocked}>Submit Predictions</button>
+                            <AdminPanel />
                         </div>
                     ) : (
                         <div className="leaderboard-container">
@@ -131,7 +184,7 @@
                                     {leaderboardData.map((player, index) => (
                                         <tr key={player.name}>
                                             <td>{index + 1}</td>
-                                            <td>{player.name} {player.wildcard === currentGameweek && `(W${player.wildcard})`}</td>
+                                            <td>{player.name} {player.wildcard && `(W${player.wildcard})`}</td>
                                             <td>{player.score}</td>
                                         </tr>
                                     ))}

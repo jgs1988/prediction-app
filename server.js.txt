@@ -1,0 +1,116 @@
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const app = express();
+
+const port = process.env.PORT || 3001;
+
+app.use(cors());
+app.use(express.json());
+
+// This tells Express where to find your front-end file (index.html)
+app.use(express.static(path.join(__dirname)));
+
+// This is our simple in-memory database.
+// IMPORTANT: This data will be reset if the server restarts.
+let players = [];
+
+// --- API Endpoints ---
+
+// API to get the current list of all players and their scores
+app.get('/api/players', (req, res) => {
+    res.json(players);
+});
+
+// API for a player to submit their predictions
+app.post('/api/submit', (req, res) => {
+    const { playerName, predictions, wildcardGameweek, gameweek } = req.body;
+
+    if (!playerName || !predictions) {
+        return res.status(400).json({ message: 'Player name and predictions are required.' });
+    }
+
+    let player = players.find(p => p.name === playerName);
+
+    if (player) {
+        // Update existing player's predictions for the specific gameweek
+        if (!player.predictions) {
+            player.predictions = {};
+        }
+        player.predictions[gameweek] = predictions;
+        if (wildcardGameweek) {
+            player.wildcard = wildcardGameweek;
+        }
+    } else {
+        // Add a new player to our list
+        player = {
+            name: playerName,
+            predictions: { [gameweek]: predictions },
+            wildcard: wildcardGameweek,
+            score: 0
+        };
+        players.push(player);
+    }
+    
+    res.status(201).json({ message: 'Predictions submitted successfully!' });
+});
+
+// API to calculate scores for a finished gameweek
+app.post('/api/calculate-scores', (req, res) => {
+    const { gameweek } = req.body;
+    
+    // In a real app, you would fetch these results from a live API.
+    // For now, these are the hardcoded results for Gameweek 1.
+    const results = {
+        1: { homeScore: 2, awayScore: 1 }, 2: { homeScore: 1, awayScore: 1 },
+        3: { homeScore: 0, awayScore: 3 }, 4: { homeScore: 2, awayScore: 2 },
+        5: { homeScore: 1, awayScore: 0 }, 6: { homeScore: 1, awayScore: 2 },
+        7: { homeScore: 3, awayScore: 0 }, 8: { homeScore: 0, awayScore: 0 },
+        9: { homeScore: 2, awayScore: 2 }, 10: { homeScore: 1, awayScore: 1 },
+    };
+
+    players.forEach(player => {
+        let gameweekScore = 0;
+        const playerPredictions = player.predictions ? player.predictions[gameweek] : null;
+
+        if (playerPredictions) {
+            for (const fixtureId in playerPredictions) {
+                const prediction = playerPredictions[fixtureId];
+                const result = results[fixtureId];
+
+                if (result && prediction.homeScore !== undefined && prediction.awayScore !== undefined) {
+                    const predHome = parseInt(prediction.homeScore, 10);
+                    const predAway = parseInt(prediction.awayScore, 10);
+
+                    // 5 points for correct score
+                    if (predHome === result.homeScore && predAway === result.awayScore) {
+                        gameweekScore += 5;
+                    } 
+                    // 2 points for correct result (win/draw/loss)
+                    else if (Math.sign(predHome - predAway) === Math.sign(result.homeScore - result.awayScore)) {
+                        gameweekScore += 2;
+                    }
+                }
+            }
+        }
+        
+        if (player.wildcard === gameweek) {
+            gameweekScore *= 2;
+        }
+        
+        player.score = (player.score || 0) + gameweekScore;
+    });
+
+    players.sort((a, b) => b.score - a.score);
+    res.json(players);
+});
+
+// This final route serves your main HTML file for any other request
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Prediction app server listening on port ${port}`);
+});
